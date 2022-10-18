@@ -567,7 +567,7 @@ def run_solr_query(
         values = param[field]
         params += [('fq', f'{field}:"{val}"') for val in values if val]
 
-    if param.get('q'):
+    if param.get('q', '').strip():
         q = process_user_query(param['q'])
     else:
         q = build_q_from_params(param)
