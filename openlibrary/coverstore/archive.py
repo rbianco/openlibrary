@@ -56,8 +56,9 @@ class TarManager:
         indexpath = path.replace('.tar', '.index')
         print(indexpath, os.path.exists(path))
         mode = 'a' if os.path.exists(path) else 'w'
-        return tarfile.TarFile(path, mode, format=tarfile.USTAR_FORMAT), open(indexpath, mode)
-
+        return tarfile.TarFile(path, mode, format=tarfile.USTAR_FORMAT), open(
+            indexpath, mode
+        )
 
     def add_file(self, name, filepath, mtime):
         with open(filepath, 'rb') as fileobj:
@@ -94,13 +95,21 @@ def archive(test=True):
     _db = db.getdb()
 
     try:
-        covers = _db.select('cover', where='archived=$f and id>7999999', order='id', vars={'f': False}, limit=8000)
+        covers = _db.select(
+            'cover',
+            where='archived=$f and id>7999999',
+            order='id',
+            vars={'f': False},
+            limit=8000,
+        )
 
         for cover in covers:
             print('archiving', cover)
 
             files = {
-                'filename': web.storage(name="%010d.jpg" % cover.id, filename=cover.filename),
+                'filename': web.storage(
+                    name="%010d.jpg" % cover.id, filename=cover.filename
+                ),
                 'filename_s': web.storage(
                     name="%010d-S.jpg" % cover.id, filename=cover.filename_s
                 ),
@@ -109,7 +118,7 @@ def archive(test=True):
                 ),
                 'filename_l': web.storage(
                     name="%010d-L.jpg" % cover.id, filename=cover.filename_l
-                )
+                ),
             }
 
             for file_type in files:
@@ -121,19 +130,23 @@ def archive(test=True):
             print(files.values())
 
             if any(
-                d.get('path') is None or not os.path.exists(d.get('path')) for d in files.values()
+                d.get('path') is None or not os.path.exists(d.get('path'))
+                for d in files.values()
             ):
                 print("Missing image file for %010d" % cover.id, file=web.debug)
                 continue
 
             if isinstance(cover.created, str):
                 from infogami.infobase import utils
+
                 cover.created = utils.parse_datetime(cover.created)
 
             timestamp = time.mktime(cover.created.timetuple())
 
             for d in files.values():
-                d.newname = tar_manager.add_file(d.name, filepath=d.path, mtime=timestamp)
+                d.newname = tar_manager.add_file(
+                    d.name, filepath=d.path, mtime=timestamp
+                )
 
             if not test:
                 _db.update(
