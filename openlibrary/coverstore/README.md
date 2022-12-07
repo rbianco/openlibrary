@@ -48,7 +48,7 @@ The item name itself (e.g. `coverd_0007`) is a combination of the prefix `covers
 
 ## Archival Process
 
-**We now have a ~recipe. Tomorrow I'll try kicking off another batch of these.**
+**Recipe for moving one batch of 10k covers at a time into tars on archive.org.**
 
 1. Run archive.py on 10k items, starting at stable ID 8M, to create a new part e.g. `covers_0008_**01**`
 2. `ia upload` each partial to the 4 respective items:
