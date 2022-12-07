@@ -52,7 +52,7 @@ The item name itself (e.g. `coverd_0007`) is a combination of the prefix `covers
 
 1. Run archive.py on 10k items, starting at stable ID 8M, to create a new part e.g. `covers_0008_**01**`
 2. `ia upload` each partial to the 4 respective items:
-    * `covers_0008` -> `covers_0008_**01**.index` and `covers_0008_01.tar`
+    * `covers_0008` -> `covers_0008_01.index` and `covers_0008_01.tar`
     * `s_covers_0008` -> `s_covers_0008_01.index` and `s_covers_0008_01.tar`
     * `m_covers_0008` -> `m_covers_0008_01.index` and `m_covers_0008_01.tar`
     * `l_covers_0008` -> `l_covers_0008_01.index` and `l_covers_0008_01.tar`
@@ -60,7 +60,7 @@ The item name itself (e.g. `coverd_0007`) is a combination of the prefix `covers
   * `if (8020000 > int(value) >= 8000000):`  ...
 4. Restart the containers + test to make sure the service is resolving to archive.org for all sizes
 5. Remove only the completed partial (e.g. 01 from each folder on /1/var/lib/openlibrary/coverstore/items/
-  * `rm /1/var/lib/openlibrary/coverstore/items/cover_0008/covers_0008_**01**.`
+  * `rm /1/var/lib/openlibrary/coverstore/items/cover_0008/covers_0008_01.*`
   * `rm /1/var/lib/openlibrary/coverstore/items/s_cover_0008/s_covers_0008_01.*`
   * `rm /1/var/lib/openlibrary/coverstore/items/m_cover_0008/m_covers_0008_01.*`
   * `rm /1/var/lib/openlibrary/coverstore/items/l_cover_0008/l_covers_0008_01.*`
