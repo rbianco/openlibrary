@@ -1,6 +1,6 @@
 ## Warnings
 
-As of 2022-11 there are 5,692,598 unarchived covers on ol-covers0 and archival hasn't occurred since 2014-11-29`. This 5.7M number is sufficiently large that running `/openlibrary/openlibrary/coverstore/archive.py` `archive()` is still hanging after 5 minutes when trying to query for all unarchived covers.
+As of 2022-11 there are 5,692,598 unarchived covers on ol-covers0 and archival hasn't occurred since 2014-11-29. This 5.7M number is sufficiently large that running `/openlibrary/openlibrary/coverstore/archive.py` `archive()` is still hanging after 5 minutes when trying to query for all unarchived covers.
 
 As a result, it is recommended to adjust the cover query for unarchived items within archive.py to batch using some limit e.g. 1000. Also note that an initial `id` is specified (which is the last known successfully archived ID in `2014-11-29`):
 
@@ -9,6 +9,8 @@ covers = _db.select('cover', where='archived=$f and id>6708293', order='id', var
 ```
 
 # How to run Covers Archival
+
+First, `ssh -A ol-covers0` and run `docker exec -it openlibrary_covers_1 bash`. Next, launch a python terminal and run:
 
 ```
 from openlibrary.coverstore import config
@@ -50,7 +52,7 @@ The item name itself (e.g. `coverd_0007`) is a combination of the prefix `covers
 
 **Recipe for moving one batch of 10k covers at a time into tars on archive.org.**
 
-1. Run archive.py on ~10k items to create a new partial of unarchived covers, starting at stable ID 8M (e.g. `covers_0008_01`)
+1. On ol-covers0 docker container, rn archive.py on ~10k items to create a new partial of unarchived covers, starting at stable ID 8M (e.g. `covers_0008_01`)
     ```
     from openlibrary.coverstore import config
     from openlibrary.coverstore.server import load_config
