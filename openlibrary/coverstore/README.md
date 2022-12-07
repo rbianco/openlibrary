@@ -15,7 +15,7 @@ from openlibrary.coverstore import config
 from openlibrary.coverstore.server import load_config
 from openlibrary.coverstore import archive
 load_config("/olsystem/etc/coverstore.yml")
-archive.archive()
+archive.archive(test=False)
 ```
 
 # How it works
@@ -50,7 +50,14 @@ The item name itself (e.g. `coverd_0007`) is a combination of the prefix `covers
 
 **Recipe for moving one batch of 10k covers at a time into tars on archive.org.**
 
-1. Run archive.py on 10k items, starting at stable ID 8M, to create a new part e.g. `covers_0008_**01**`
+1. Run archive.py on ~10k items to create a new partial of unarchived covers, starting at stable ID 8M (e.g. `covers_0008_01`)
+    ```
+    from openlibrary.coverstore import config
+    from openlibrary.coverstore.server import load_config
+    from openlibrary.coverstore import archive
+    load_config("/olsystem/etc/coverstore.yml")
+    archive.archive(test=False)
+    ```
 2. `ia upload` each partial to the 4 respective items:
     * `covers_0008` -> `covers_0008_01.index` and `covers_0008_01.tar`
     * `s_covers_0008` -> `s_covers_0008_01.index` and `s_covers_0008_01.tar`
