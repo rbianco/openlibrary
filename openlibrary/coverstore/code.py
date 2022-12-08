@@ -269,8 +269,6 @@ class cover:
                 raise web.found(url)
         elif key == 'test':
             cover_id = 8000001
-
-            pass
         elif key == 'ia':
             url = self.get_ia_cover_url(value, size)
             if url:
