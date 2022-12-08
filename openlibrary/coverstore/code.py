@@ -290,7 +290,7 @@ class cover:
 
         # These covers are tar archived in items, starting with covers_0008
         if isinstance(value, int) or value.isnumeric():
-            if (8010000 > int(value) >= 8000000):
+            if 8010000 > int(value) >= 8000000:
                 prefix = f"{size.lower()}_" if size else ""
                 pid = "%010d" % int(value)
                 item_id = f"{prefix}covers_{pid[:4]}"
