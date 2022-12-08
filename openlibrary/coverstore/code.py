@@ -282,7 +282,7 @@ class cover:
             raise web.notfound()
 
         # redirect to archive.org cluster for large size and original images whenever possible
-        if (size == "L" or size == "") and self.is_cover_in_cluster(value):
+        if size in ("L", "") and self.is_cover_in_cluster(value):
             url = zipview_url_from_id(int(value), size)
             raise web.found(url)
 
